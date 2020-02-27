@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <act_window id="library_book_action" name="Library Books" res_model="library.book" />
+    <menuitem name="Library" id="library_book_menu" action="library_book_action"/>
+
+    <act_window id="library_book_action_member" name="Library Member" res_model="library.member" />
+    <menuitem name="Library Member" id="library_book_menu_member" action="library_book_action_member"/>
+
+    <act_window id="library_book_category_action" name="Book Category" res_model="library.book.category" />
+    <menuitem name="Library Category" id="library_book_category_menu" action="library_book_category_action"/>
+
+    <record id="library_book_view_form" model="ir.ui.view">
+        <field name="name">Library Book Form</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name"></field>
+                    <field name="author_ids" widget="many2many_tags"></field>
+                </group>
+                <group>
+                    <field name="date_release"></field>
+                    <field name="state"></field>
+                    <field name="cover"></field>
+                    <field name="out_of_print"></field>
+                    <field name="publisher_id"></field>
+                    <field name="date_updated"></field>
+                    <field name="reader_rating"></field>
+                    <field name="pages"></field>
+                    <field name="age_days"></field>
+                    <field name="publisher_city"></field>
+                    <field name="ref_doc_id"></field>
+
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="lib_booking_action" model="ir.actions.server">
+            <field name="name">Transition</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_library_book"/>
+            <field name="binding_model_id" ref="model_library_book"/>
+            <field name="state">code</field>
+            <field name="code">
+                action = records.change_state('available')
+            </field>
+        </record>
+
+    <record id="library_book_view_tree" model="ir.ui.view">
+        <field name="name">Library Book List</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="date_release"/>
+                <field name="state"/>
+                <field name="publisher_id"/>
+                <field name="out_of_print"/>
+                <field name="reader_rating"/>
+                <field name="pages"/>
+                 
+            </tree>
+        </field>
+    </record>
+    <record id="library_book_view_search" model="ir.ui.view">
+        <field name="name">Library Book Search</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+        <search>
+            <field name="name"/>
+            <field name="author_ids"/>
+            <filter string="No Authors"
+            domain="[('author_ids','=',False)]"/>
+        </search>
+        </field>
+    </record>
+</odoo>
