@@ -103,14 +103,14 @@ class LibraryBook(models.Model):
             today_str = fields.Date.context_today(self)
             val1 = {'name': 'Eric Idle','email': 'eric.idle@example.com','date': today_str}
             val2 = {'name': 'John Cleese','email': 'john.cleese@example.com','date': today_str}
-            id_list = [29,]
             partner_val = {
-                    'name': 'Flying Circus2',
+                    'name': 'Flying Circus',
                     'email': 'm.python@example.com',
                     'date': today_str,
                     'is_company': True,
                     'child_ids': [
-                            (6, 0, id_list)]
+                            (0, 0, val1),
+                            (0, 0, val2),]
                             }
             record = self.env['res.partner'].create(partner_val)
             for book in self:
